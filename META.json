@@ -42,8 +42,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Exporter::Lite" : "0",
-            "Params::Validate" : "0",
+            "Exporter" : "0",
             "perl" : "5.008001"
          }
       },
