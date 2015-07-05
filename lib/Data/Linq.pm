@@ -2,9 +2,16 @@ package Data::Linq;
 use 5.008001;
 use strict;
 use warnings;
+use Data::Linq::Enumerable;
+use Exporter::Lite;
 
 our $VERSION = "0.01";
+our @EXPORT = qw/ enumerable /;
 
+# Using Subroutine Prototype
+sub enumerable {
+    Data::Linq::Enumerable->new(@_);
+}
 
 
 1;
