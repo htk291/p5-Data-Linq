@@ -1,7 +1,7 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "LINQ for Perl",
    "author" : [
-      "This library is free software; you can redistribute it and/or modify"
+      "htk291 <htk291@gmail.com>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v2.1.1, CPAN::Meta::Converter version 2.140640",
@@ -42,6 +42,8 @@
       },
       "runtime" : {
          "requires" : {
+            "Exporter::Lite" : "0",
+            "Params::Validate" : "0",
             "perl" : "5.008001"
          }
       },
@@ -52,6 +54,17 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/htk291/p5-Data-Linq/issues"
+      },
+      "homepage" : "https://github.com/htk291/p5-Data-Linq",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/htk291/p5-Data-Linq.git",
+         "web" : "https://github.com/htk291/p5-Data-Linq"
+      }
+   },
    "version" : "0.01",
    "x_authority" : "cpan:HTK"
 }

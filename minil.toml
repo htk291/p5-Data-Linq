@@ -1,5 +1,5 @@
 name = "Data-Linq"
-# badges = ["travis"]
+badges = ["travis", "coveralls"]
 authority="cpan:HTK"
 
 module_maker="ModuleBuildTiny"
