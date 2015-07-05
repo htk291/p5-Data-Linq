@@ -1,0 +1,6 @@
+name = "Data-Linq"
+# badges = ["travis"]
+authority="cpan:HTK"
+
+module_maker="ModuleBuildTiny"
+
