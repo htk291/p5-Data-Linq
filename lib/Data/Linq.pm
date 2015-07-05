@@ -3,7 +3,7 @@ use 5.008001;
 use strict;
 use warnings;
 use Data::Linq::Enumerable;
-use Exporter::Lite;
+use Exporter 'import';
 
 our $VERSION = "0.01";
 our @EXPORT = qw/ enumerable /;
