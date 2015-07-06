@@ -89,5 +89,10 @@ subtest 'where' => sub {
 };
 
 
+subtest 'aggregate' => sub {
+    my $id_max_user = enumerable($mh)->aggregate(sub {$a->{user}{id} > $b->{user}{id} ? $a : $b});
+    is $id_max_user->{user}{id}, 4;
+};
+
 done_testing;
 

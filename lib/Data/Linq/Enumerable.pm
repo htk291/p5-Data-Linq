@@ -67,4 +67,19 @@ sub where {
     return $self->new(@ret);
 }
 
+sub aggregate {
+    my ($self, $code) = @_;
+    my $caller = caller();
+    my @rows = $self->to_array;
+    my $rtn;
+    for (my $i = 0; $i <= $#rows-1; $i++) {
+        my $j = $i + 1;
+        no strict;
+        local ${$caller.'::a'} = $rtn || $rows[$i];
+        local ${$caller.'::b'} = $rows[$j];
+        $rtn = $code->();
+    }
+    return $rtn;
+}
 
+1;
