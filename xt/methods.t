@@ -42,4 +42,4 @@ can_ok($linq, qw/
     where
 /);
 
-1;
+done_testing;
