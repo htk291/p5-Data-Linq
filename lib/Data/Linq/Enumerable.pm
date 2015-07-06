@@ -46,7 +46,11 @@ sub size {
 }
 
 sub select {
-    my($self) = @_;
+    my ($self, $code) = @_;
+    my $caller = caller();
+    no strict;
+    local ${$caller.'::_'} = $_;
+    __PACKAGE__->new([ map {$code->()} $self->to_array ]);
 }
 
 sub where {
@@ -81,5 +85,16 @@ sub aggregate {
     }
     return $rtn;
 }
+
+sub max {
+    my ($self) = @_;
+    $self->aggregate(sub {$a > $b ? $a : $b});
+}
+
+sub min {
+    my ($self) = @_;
+    $self->aggregate(sub {$a > $b ? $b : $a});
+}
+
 
 1;

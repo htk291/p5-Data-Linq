@@ -94,5 +94,20 @@ subtest 'aggregate' => sub {
     is $id_max_user->{user}{id}, 4;
 };
 
+subtest 'select' => sub {
+    my @names = enumerable($mh)->select(sub{$_->{user}{name}})->to_array;
+    is_deeply [@names], ['Sherlock', 'Nero', 'Elly', 'Cordelia'];
+};
+
+subtest 'max' => sub {
+    my $max_id = enumerable($mh)->select(sub{$_->{user}{id}})->max;
+    is $max_id, 4;
+};
+
+subtest 'min' => sub {
+    my $max_id = enumerable($mh)->select(sub{$_->{user}{id}})->min;
+    is $max_id, 1;
+};
+
 done_testing;
 
