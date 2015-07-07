@@ -99,6 +99,8 @@ sub min {
     $self->aggregate(sub {$a > $b ? $b : $a});
 }
 
+### generate methods
+
 sub range {
     my $self = shift;
     my ($offset, $range) = 
@@ -116,6 +118,48 @@ sub repeat {
 
 sub empty {
     shift->new();
+}
+
+### partitioning methods
+
+sub take {
+    my ($self, $num) = @_;
+    my @list = $self->to_array;
+    $self->new([@list[0..$num-1]]);
+}
+
+sub skip {
+    my ($self, $num) = @_;
+    my @list = $self->to_array;
+    $self->new([@list[$num..$#list]]);
+}
+
+sub take_while {
+    my ($self, $code) = @_;
+    my @list = $self->to_array;
+    my @newlist;
+    my $caller = caller;
+    for my $item (@list) {
+        no strict;
+        local ${$caller.'::_'} = $item;
+        last unless $code->();
+        push @newlist, $item;
+    }
+    $self->new([@newlist]);
+}
+
+sub skip_while {
+    my ($self, $code) = @_;
+    my @list = $self->to_array;
+    my @newlist;
+    my $caller = caller;
+    for my $item (@list) {
+        no strict;
+        local ${$caller.'::_'} = $item;
+        next if $code->();
+        push @newlist, $item;
+    }
+    $self->new([@newlist]);
 }
 
 1;
