@@ -172,4 +172,10 @@ sub concat {
     ;
 }
 
+### reverse sequence method
+
+sub reverse {
+    my $self = shift;
+    $self->new([CORE::reverse($self->to_array)]);
+}
 1;
