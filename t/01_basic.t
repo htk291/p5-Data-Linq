@@ -32,6 +32,11 @@ subtest 'enumerable' => sub {
 
         isa_ok $list, "Data::Linq::Enumerable";
     };
+    subtest 'enumerable(undef)' => sub {
+        my $list = enumerable();
+
+        isa_ok $list, "Data::Linq::Enumerable";
+    };
 };
 
 subtest 'size' => sub {

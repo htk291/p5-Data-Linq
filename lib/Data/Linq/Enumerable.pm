@@ -5,7 +5,6 @@ use warnings;
 
 use Params::Validate qw/ :all /;
 use Scalar::Util qw/ looks_like_number /;
-use Data::Dumper;
 use Carp ();
 use List::Util ();
 
@@ -15,7 +14,11 @@ sub new {
     my $self = shift;
     my ($list) = @_;
 
-    ($list) = ref $list eq "HASH" ? [@_] : @_;
+    ($list) = 
+        ! defined $list ? [] :
+        ref $list eq "HASH" ? [@_] : 
+        @_
+    ;
     my $class = ref $self || $self;
     bless $list, $class;
 }
@@ -96,5 +99,23 @@ sub min {
     $self->aggregate(sub {$a > $b ? $b : $a});
 }
 
+sub range {
+    my $self = shift;
+    my ($offset, $range) = 
+        scalar @_ == 2 ? ($_[0], $_[1]-1) : 
+        (0, $_[0]-1) 
+    ;
+    my $last = $offset + $range;
+    $self->new([$offset .. $last]);
+}
+
+sub repeat {
+    my ($self, $item, $range) = @_;
+    $self->new([map {$item} 1 .. $range]);
+}
+
+sub empty {
+    shift->new();
+}
 
 1;
