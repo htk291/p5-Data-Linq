@@ -7,6 +7,8 @@ use Params::Validate qw/ :all /;
 use Scalar::Util qw/ looks_like_number /;
 use Carp ();
 use List::Util ();
+use List::MoreUtils ();
+use Test::Deep::NoTest;
 
 our $VERSION = "0.01";
 
@@ -178,4 +180,36 @@ sub reverse {
     my $self = shift;
     $self->new([CORE::reverse($self->to_array)]);
 }
+
+### set methods
+
+sub distinct {
+    my $self = shift;
+    $self->new([List::MoreUtils::distinct($self->to_array)]);
+}
+
+sub union {
+    my ($self, $enum) = @_;
+    $self->new([$self->concat($enum)->to_array])->distinct;
+}
+
+sub intersect {
+    my ($self, $enum) = @_;
+    my @list = $self->to_array;
+    my @newlist;
+    for my $item ($enum->to_array) {
+        push @newlist, grep {eq_deeply($item, $_)} @list;
+    }
+    $self->new([@newlist])->distinct;
+}
+
+sub except {
+    my ($self, $enum) = @_;
+    my @list = $self->to_array;
+    for my $item ($self->intersect($enum)->to_array) {
+        @list = grep {!eq_deeply($item, $_)} @list;
+    }
+    $self->new([@list])->distinct;
+}
+
 1;
