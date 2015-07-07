@@ -55,7 +55,7 @@ sub select {
     my $caller = caller();
     no strict;
     local ${$caller.'::_'} = $_;
-    __PACKAGE__->new([ map {$code->()} $self->to_array ]);
+    $self->new([ map {$code->()} $self->to_array ]);
 }
 
 sub where {
@@ -210,6 +210,13 @@ sub except {
         @list = grep {!eq_deeply($item, $_)} @list;
     }
     $self->new([@list])->distinct;
+}
+
+### sequence equal method
+
+sub sequence_equal {
+    my ($self, $enum) = @_;
+    eq_deeply($self, $enum);
 }
 
 1;
