@@ -162,4 +162,14 @@ sub skip_while {
     $self->new([@newlist]);
 }
 
+### concatenation method
+
+sub concat {
+    my $self = shift; 
+    scalar @_ == 2 ? 
+        $self->new([map {$_->to_array} @_]) :
+        $self->new([$self->to_array, $_[0]->to_array])
+    ;
+}
+
 1;
