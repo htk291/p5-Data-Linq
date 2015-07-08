@@ -8,7 +8,7 @@ use Scalar::Util qw/ looks_like_number /;
 use Carp ();
 use List::Util ();
 use List::MoreUtils ();
-use Test::Deep::NoTest;
+use Test::Deep::NoTest qw'eq_deeply';
 
 our $VERSION = "0.01";
 
@@ -246,5 +246,36 @@ sub sequence_equal {
     my ($self, $enum) = @_;
     eq_deeply($self, $enum);
 }
+
+### quantifier
+
+sub any {
+    my ($self, $code) = @_;
+    my $caller = caller;
+    no strict;
+    return 1 if grep {
+        ${$caller.'::_'} = $_;
+        $code->();
+    } $self->to_array;
+}
+
+sub all {
+    my ($self, $code) = @_;
+    my $caller = caller;
+    no strict;
+    for my $item ($self->to_array) {
+        ${$caller.'::_'} = $item;
+        return unless $code->();
+    }
+    return 1;
+}
+
+sub contains {
+    my ($self, $search) = @_;
+    for my $item ($self->to_array) {
+        return 1 if eq_deeply($item, $search);
+    }
+}
+
 
 1;
