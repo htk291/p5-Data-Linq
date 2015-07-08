@@ -104,6 +104,8 @@ sub where {
     return $self->new(@ret);
 }
 
+### aggregate methods
+
 sub aggregate {
     my ($self, $code) = @_;
     my $caller = caller();
@@ -119,6 +121,11 @@ sub aggregate {
     return $rtn;
 }
 
+sub count {
+    my $self = shift; 
+    scalar($self->to_array);
+}
+
 sub max {
     my ($self) = @_;
     $self->aggregate(sub {$a > $b ? $a : $b});
@@ -127,6 +134,16 @@ sub max {
 sub min {
     my ($self) = @_;
     $self->aggregate(sub {$a > $b ? $b : $a});
+}
+
+sub sum {
+    my $self = shift;
+    $self->aggregate(sub{$a + $b});
+}
+
+sub average {
+    my $self = shift;
+    $self->sum / $self->count;
 }
 
 ### generate methods

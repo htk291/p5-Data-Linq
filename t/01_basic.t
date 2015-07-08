@@ -98,11 +98,6 @@ subtest 'where' => sub {
 };
 
 
-subtest 'aggregate' => sub {
-    my $id_max_user = enumerable($mh)->aggregate(sub {$a->{user}{id} > $b->{user}{id} ? $a : $b});
-    is $id_max_user->{user}{id}, 4;
-};
-
 subtest 'select' => sub {
     my @names = enumerable($mh)->select(sub{$_->{user}{name}})->to_array;
     is_deeply [@names], ['Sherlock', 'Nero', 'Elly', 'Cordelia'];
@@ -111,16 +106,6 @@ subtest 'select' => sub {
 subtest 'to_lookup' => sub {
     my $lookup = enumerable([@$mh, @$feathers, @$g4])->to_lookup(sub {substr($_->{user}{name}, 0, 1)});
     is_deeply $lookup->{K}->select(sub{$_->{user}{name}})->to_arrayref, ['Kazumi', 'Kokoro']; 
-};
-
-subtest 'max' => sub {
-    my $max_id = enumerable($mh)->select(sub{$_->{user}{id}})->max;
-    is $max_id, 4;
-};
-
-subtest 'min' => sub {
-    my $max_id = enumerable($mh)->select(sub{$_->{user}{id}})->min;
-    is $max_id, 1;
 };
 
 done_testing;
