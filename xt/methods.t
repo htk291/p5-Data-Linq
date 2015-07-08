@@ -18,9 +18,7 @@ can_ok($linq, qw/
     element_at_or_default
     empty
     first
-    first_or_default
     last
-    last_or_default
     long_count
     max
     min
