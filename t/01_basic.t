@@ -108,6 +108,11 @@ subtest 'select' => sub {
     is_deeply [@names], ['Sherlock', 'Nero', 'Elly', 'Cordelia'];
 };
 
+subtest 'to_lookup' => sub {
+    my $lookup = enumerable([@$mh, @$feathers, @$g4])->to_lookup(sub {substr($_->{user}{name}, 0, 1)});
+    is_deeply $lookup->{K}->select(sub{$_->{user}{name}})->to_arrayref, ['Kazumi', 'Kokoro']; 
+};
+
 subtest 'max' => sub {
     my $max_id = enumerable($mh)->select(sub{$_->{user}{id}})->max;
     is $max_id, 4;

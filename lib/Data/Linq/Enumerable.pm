@@ -47,6 +47,22 @@ sub to_dictionary {
     )};
 }
 
+sub to_lookup {
+    my ($self, $code) = @_;
+    my $caller = caller;
+    my $dict = {};
+    my $key;
+    no strict;
+    for my $item ($self->to_array) {
+        ${$caller.'::_'} = $item;
+        $key = $code->();
+        $dict->{$key} ||= [];
+        push @{$dict->{$key}}, $item;
+    }
+    $dict->{$_} = $self->new($dict->{$_}) for keys %$dict;
+    $dict;
+}
+
 sub first {
     my $self = shift;
     $self->new( $self->[0] );
