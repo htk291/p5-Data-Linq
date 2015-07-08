@@ -10,7 +10,6 @@ can_ok($linq, qw/
     aggregate
     all
     any
-    as_enumerable
     average
     cast
     contains
