@@ -15,7 +15,6 @@ can_ok($linq, qw/
     count
     default_if_empty
     element_at
-    element_at_or_default
     empty
     first
     last
@@ -29,7 +28,6 @@ can_ok($linq, qw/
     select_many
     sequence_equal
     single
-    single_or_default
     sum
     to_array
     to_dictionary
