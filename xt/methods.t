@@ -11,7 +11,6 @@ can_ok($linq, qw/
     all
     any
     average
-    cast
     contains
     count
     default_if_empty
