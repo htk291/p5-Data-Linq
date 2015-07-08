@@ -2,7 +2,6 @@ use strict;
 use warnings;
 use Data::Linq;
 use Test::More;
-use Data::Dumper;
 
 my $mh = [
         { user => { id => 1,  name => 'Sherlock' }, toys => 'Psychokinesis' },
@@ -64,6 +63,11 @@ subtest 'to_arrayref' => sub {
     my $member = enumerable($g4)->first->to_arrayref;
     my ($kokoro_chan) = @$member;
     is $kokoro_chan->{IQ}, 1300;
+};
+
+subtest 'to_dictionary' => sub {
+    my $dict = enumerable($mh)->to_dictionary(sub {$_->{user}{name}});
+    is $dict->{Nero}{toys}, 'Direct Hack';
 };
 
 subtest 'first' => sub {

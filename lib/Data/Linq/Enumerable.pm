@@ -35,6 +35,18 @@ sub to_arrayref {
     return [@$self];
 }
 
+sub to_dictionary {
+    my ($self, $code) = @_;
+    my $caller = caller;
+    +{(
+        map {
+            no strict;
+            local ${$caller.'::_'} = $_;
+            ($code->() => $_);
+        } $self->to_array
+    )};
+}
+
 sub first {
     my $self = shift;
     $self->new( $self->[0] );
