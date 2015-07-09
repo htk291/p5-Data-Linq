@@ -63,6 +63,21 @@ sub to_lookup {
     $dict;
 }
 
+sub single {
+    my ($self, $code) = @_;
+    my $caller = caller;
+    my $rows = $self->new([
+        grep {
+            no strict;
+            local ${$caller.'::_'} = $_;
+            $code->() 
+        } $self->to_array
+    ]);
+
+    Carp::carp('multiple items matched') if $rows->count > 1;
+    $rows->[0] if $rows->count == 1;
+}
+
 sub first {
     my $self = shift;
     $self->new( $self->[0] );

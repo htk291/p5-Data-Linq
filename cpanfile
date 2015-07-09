@@ -8,5 +8,6 @@ requires 'Test::Deep::NoTest';
 
 on 'test' => sub {
     requires 'Test::More', '0.98';
+    requires 'Test::Warn';
 };
 

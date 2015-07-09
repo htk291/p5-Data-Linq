@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Data::Linq;
 use Test::More;
+use Test::Warn;
 
 my $mh = [
         { user => { id => 1,  name => 'Sherlock' }, toys => 'Psychokinesis' },
@@ -106,6 +107,14 @@ subtest 'select' => sub {
 subtest 'to_lookup' => sub {
     my $lookup = enumerable([@$mh, @$feathers, @$g4])->to_lookup(sub {substr($_->{user}{name}, 0, 1)});
     is_deeply $lookup->{K}->select(sub{$_->{user}{name}})->to_arrayref, ['Kazumi', 'Kokoro']; 
+};
+
+subtest 'single' => sub {
+    my $row = enumerable($mh)->single(sub {$_->{user}{id} == 3});
+    isa_ok $row, 'HASH';
+    is $row->{user}{id}, 3;
+    
+    warning_is { enumerable($mh)->single(sub {$_->{user}{id}}) } {carped => 'multiple items matched'};
 };
 
 done_testing;
