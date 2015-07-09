@@ -38,9 +38,9 @@ sub to_arrayref {
 sub to_dictionary {
     my ($self, $code) = @_;
     my $caller = caller;
+    no strict;
     +{(
         map {
-            no strict;
             local ${$caller.'::_'} = $_;
             ($code->() => $_);
         } $self->to_array
@@ -66,9 +66,9 @@ sub to_lookup {
 sub single {
     my ($self, $code) = @_;
     my $caller = caller;
+    no strict;
     my $rows = $self->new([
         grep {
-            no strict;
             local ${$caller.'::_'} = $_;
             $code->() 
         } $self->to_array
@@ -126,9 +126,9 @@ sub aggregate {
     my $caller = caller();
     my @rows = $self->to_array;
     my $rtn;
+    no strict;
     for (my $i = 0; $i <= $#rows-1; $i++) {
         my $j = $i + 1;
-        no strict;
         local ${$caller.'::a'} = $rtn || $rows[$i];
         local ${$caller.'::b'} = $rows[$j];
         $rtn = $code->();
@@ -201,8 +201,8 @@ sub take_while {
     my @list = $self->to_array;
     my @newlist;
     my $caller = caller;
+    no strict;
     for my $item (@list) {
-        no strict;
         local ${$caller.'::_'} = $item;
         last unless $code->();
         push @newlist, $item;
@@ -215,8 +215,8 @@ sub skip_while {
     my @list = $self->to_array;
     my @newlist;
     my $caller = caller;
+    no strict;
     for my $item (@list) {
-        no strict;
         local ${$caller.'::_'} = $item;
         next if $code->();
         push @newlist, $item;
