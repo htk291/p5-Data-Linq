@@ -43,12 +43,18 @@
       "runtime" : {
          "requires" : {
             "Exporter" : "0",
+            "List::MoreUtils" : "0",
+            "List::Util" : "0",
+            "Params::Validate" : "0",
+            "Scalar::Util" : "0",
+            "Test::Deep::NoTest" : "0",
             "perl" : "5.008001"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "Test::More" : "0.98",
+            "Test::Warn" : "0"
          }
       }
    },
@@ -65,5 +71,8 @@
       }
    },
    "version" : "0.01",
-   "x_authority" : "cpan:HTK"
+   "x_authority" : "cpan:HTK",
+   "x_contributors" : [
+      "ytnobody <ytnobody@gmail.com>"
+   ]
 }

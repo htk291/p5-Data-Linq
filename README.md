@@ -26,26 +26,21 @@ Data::Linq - LINQ for Perl
 THIS MODULE IS UNDER-DEVELOPMENT  
 Please send issue and/or pull-request casually.
 
-# METHOD
+## METHOD
 
 .NET's Linq Standard Methods (Some may delete/add)
 
 - aggregate
 - all
 - any
-- as\_enumerable
 - average
-- cast
 - contains
 - count
 - default\_if\_empty
 - element\_at
-- element\_at\_or\_default
 - empty
 - first
-- first\_or\_default
 - last
-- last\_or\_default
 - long\_count
 - max
 - min
@@ -56,7 +51,6 @@ Please send issue and/or pull-request casually.
 - select\_many
 - sequence\_equal
 - single
-- single\_or\_default
 - sum
 - to\_array
 - to\_dictionary

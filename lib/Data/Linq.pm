@@ -46,7 +46,7 @@ Data::Linq - LINQ for Perl
 THIS MODULE IS UNDER-DEVELOPMENT  
 Please send issue and/or pull-request casually.
 
-=head1 METHOD
+=head2 METHOD
 
 .NET's Linq Standard Methods (Some may delete/add)
 
@@ -58,11 +58,7 @@ Please send issue and/or pull-request casually.
 
 =item * any
 
-=item * as_enumerable
-
 =item * average
-
-=item * cast
 
 =item * contains
 
@@ -72,17 +68,11 @@ Please send issue and/or pull-request casually.
 
 =item * element_at
 
-=item * element_at_or_default
-
 =item * empty
 
 =item * first
 
-=item * first_or_default
-
 =item * last
-
-=item * last_or_default
 
 =item * long_count
 
@@ -103,8 +93,6 @@ Please send issue and/or pull-request casually.
 =item * sequence_equal
 
 =item * single
-
-=item * single_or_default
 
 =item * sum
 
